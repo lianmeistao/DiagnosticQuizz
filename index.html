@@ -26,7 +26,7 @@
             <div class="w-full bg-stone-100 h-[2px] mt-10 rounded-full overflow-hidden">
                 <div id="progress" class="bg-stone-400 h-full transition-all duration-700" style="width: 0%"></div>
             </div>
-            <p id="progress-text" class="text-[10px] uppercase tracking-widest text-stone-400 mt-4 italic">Exploration énergétique...</p>
+            <p id="progress-text" class="text-[10px] uppercase tracking-widest text-stone-400 mt-4 italic">Exploration énergétique en cours...</p>
         </div>
 
         <!-- Question Area -->
@@ -41,7 +41,7 @@
             <h2 id="result-title" class="text-3xl md:text-4xl mb-4 text-stone-800 serif italic"></h2>
             <p id="result-archetype" class="italic text-stone-500 mb-10 font-serif text-xl"></p>
             
-            <!-- Scores détaillés -->
+            <!-- Scores détaillés (Majeur + Mineur) -->
             <div class="mb-12 p-8 bg-stone-50 rounded-[2rem] border border-stone-100 shadow-inner text-left">
                 <h4 class="serif text-xl text-stone-700 mb-6 italic">Votre Signature de Saison :</h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -78,8 +78,8 @@
                         <li>✦ Le secret de la respiration 4-4-4</li>
                     </ul>
 
-                    <!-- BOUTON D'ACTION (Lien Direct Substack) -->
-                    <a href="https://souffletao.substack.com/p/votre-cadeau-le-guide-de-renaissance-a56" 
+                    <!-- BOUTON D'ACTION (Lien Substack Exact demandé) -->
+                    <a href="https://souffletao.substack.com/p/votre-cadeau-le-guide-de-renaissance-a56?r=70tisq" 
                        target="_blank" 
                        class="block w-full bg-stone-100 text-stone-900 text-center py-6 rounded-2xl hover:bg-white transition-all shadow-xl uppercase tracking-[0.25em] text-sm font-bold no-underline">
                        Récupérer mon Manuscrit
@@ -119,11 +119,11 @@
     ];
 
     const results = {
-        A: { title: "L'Élan du BOIS", icon: "🌿", label: "Bois", archetype: "La Visionnaire, l'Amazone", content: "Vous portez en vous l'énergie du Printemps, une sève montante qui demande à créer et avancer. <br><br><strong>Vos Rituels :</strong> Libérez vos tensions en massant le point <em>Taichong</em> sur vos pieds et privilégiez les saveurs acidulées." },
-        B: { title: "La Flamme du FEU", icon: "🔥", label: "Feu", archetype: "L'Impératrice, l'Amoureuse", content: "Vous vibrez à la fréquence de l'Été. Vous êtes faite pour la connexion et la joie rayonnante. <br><br><strong>Vos Rituels :</strong> Apaisez votre cœur avec un peu d'amertume noble (cacao noir) et stimulez le point <em>Shenmen</em>." },
-        C: { title: "Le Socle de la TERRE", icon: "🏺", label: "Terre", archetype: "La Mère Nourricière, la Gardienne", content: "Vous incarnez la stabilité et la récolte. Votre force réside dans votre capacité à soutenir et harmoniser. <br><br><strong>Vos Rituels :</strong> Revenez à vous avec des aliments doux et stimulez le point <em>Zusanli</em>." },
-        D: { title: "Le Joyau du MÉTAL", icon: "✨", label: "Métal", archetype: "L'Alchimiste, la Sage", content: "Vous êtes l'Automne, la quête de l'essentiel et de la pureté. Vous savez trancher pour ne garder que le précieux. <br><br><strong>Vos Rituels :</strong> Respirez avec le point <em>Hegu</em> et misez sur les aliments blancs." },
-        E: { title: "La Source de l'EAU", icon: "💧", label: "Eau", archetype: "La Mystique, la Femme Sauvage", content: "Vous portez l'énergie de l'Hiver et de l'intuition profonde. Vous savez écouter le silence. <br><br><strong>Vos Rituels :</strong> Rechargez vos réserves vitales au calme et frictionnez le point <em>Yongquan</em>." }
+        A: { title: "L'Élan du BOIS", icon: "🌿", label: "Bois", archetype: "La Visionnaire, l'Amazone", content: "Vous portez en vous l'énergie du Printemps, une sève montante qui demande à créer et avancer. <br><br><strong>Vos Rituels :</strong> Libérez vos tensions en massant le point <em>Taichong</em> sur vos pieds et privilégiez les saveurs acidulées pour fluidifier votre Qi." },
+        B: { title: "La Flamme du FEU", icon: "🔥", label: "Feu", archetype: "L'Impératrice, l'Amoureuse", content: "Vous vibrez à la fréquence de l'Été. Vous êtes faite pour la connexion et la joie rayonnante. <br><br><strong>Vos Rituels :</strong> Apaisez votre cœur avec un peu d'amertume noble (cacao noir) et stimulez le point <em>Shenmen</em> pour calmer l'agitation." },
+        C: { title: "Le Socle de la TERRE", icon: "🏺", label: "Terre", archetype: "La Mère Nourricière, la Gardienne", content: "Vous incarnez la stabilité et la récolte. Votre force réside dans votre capacité à soutenir et harmoniser. <br><br><strong>Vos Rituels :</strong> Revenez à vous avec des aliments doux et stimulez le point <em>Zusanli</em> pour renforcer votre ancrage sacré." },
+        D: { title: "Le Joyau du MÉTAL", icon: "✨", label: "Métal", archetype: "L'Alchimiste, la Sage", content: "Vous êtes l'Automne, la quête de l'essentiel et de la pureté. Vous savez trancher pour ne garder que le précieux. <br><br><strong>Vos Rituels :</strong> Respirez avec le point <em>Hegu</em> et misez sur les aliments blancs pour nourrir vos poumons." },
+        E: { title: "La Source de l'EAU", icon: "💧", label: "Eau", archetype: "La Mystique, la Femme Sauvage", content: "Vous portez l'énergie de l'Hiver et de l'intuition profonde. Vous savez écouter le silence. <br><br><strong>Vos Rituels :</strong> Rechargez vos réserves vitales au calme et frictionnez le point <em>Yongquan</em> sous vos pieds." }
     };
 
     let currentQuestion = 0;
