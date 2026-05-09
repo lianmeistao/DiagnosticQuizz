@@ -10,150 +10,255 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --jade-pale: #e9f0e9; 
-            --jade-deep: #a3c1ad;
             --gold: #b08d57;
-            --imperial-sand: #f4eee0;
+            --stone-950: #0c0a09;
             --stone-900: #1c1917;
+            --stone-800: #292524;
+            --bois: #4a7c59;
+            --feu: #c0392b;
+            --terre: #c8922a;
+            --metal: #8e9aaf;
+            --eau: #1a4a6e;
         }
 
         body { 
             font-family: 'Montserrat', sans-serif; 
-            background-color: var(--jade-pale); 
-            background-image: radial-gradient(circle at center, #f2f7f2 0%, #e9f0e9 100%);
+            background-color: var(--stone-950); 
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(176, 141, 87, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(74, 124, 89, 0.05) 0%, transparent 40%);
+            color: #e5e7eb;
             min-height: 100vh;
         }
 
         .font-serif { font-family: 'Cinzel', serif; }
 
-        .fade-in { animation: fadeIn 0.8s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.8s ease-out forwards; }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
 
         .question-card { 
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(176, 141, 87, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            background: var(--stone-900);
+            border: 1px solid rgba(176, 141, 87, 0.2);
             position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
         .question-card::before {
             content: "";
             position: absolute;
-            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            top: 12px; left: 12px; right: 12px; bottom: 12px;
             border: 1px solid var(--gold);
-            opacity: 0.4;
+            opacity: 0.15;
             pointer-events: none;
         }
 
         .btn-option {
-            background: white;
-            border: 1px solid #e5e7eb;
+            background: var(--stone-800);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: #d1d5db;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            z-index: 2;
         }
 
         .btn-option:hover {
             border-color: var(--gold);
-            background-color: #fcfbf7;
-            padding-left: 2rem;
+            background-color: var(--stone-900);
+            color: white;
+            padding-left: 2.5rem;
+            box-shadow: inset 4px 0 0 var(--gold);
         }
 
         .progress-bar-inner {
-            background: linear-gradient(90deg, var(--jade-deep), var(--gold));
+            background: linear-gradient(90deg, var(--gold), #d4af37);
             height: 100%;
             transition: width 0.6s ease;
         }
 
-        .btn-final {
-            background-color: var(--stone-900);
-            color: var(--imperial-sand);
-            letter-spacing: 0.2em;
+        .element-card {
+            background: rgba(28, 25, 23, 0.8);
+            border-top: 4px solid var(--element-color);
+            transition: transform 0.3s ease;
+        }
+
+        .btn-download {
+            background: var(--gold);
+            color: var(--stone-950);
+            letter-spacing: 0.1em;
+            font-weight: 700;
             transition: all 0.3s;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        .btn-final:hover {
-            background-color: var(--gold);
-            transform: scale(1.02);
+        .btn-download:hover {
+            background: #d4af37;
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(176, 141, 87, 0.4);
         }
 
-        .sceau-badge {
-            border: 1px solid var(--gold);
-            padding: 1rem;
-            background: white;
+        .alliance-separator {
+            position: relative;
+            text-align: center;
+            margin: 4rem 0;
+        }
+        .alliance-separator::before, .alliance-separator::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 35%;
+            height: 1px;
+            background: rgba(176, 141, 87, 0.2);
+        }
+        .alliance-separator::before { left: 0; }
+        .alliance-separator::after { right: 0; }
+
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
-<body class="text-stone-800">
+<body>
 
-    <div class="max-w-4xl mx-auto py-12 px-4">
+    <div class="max-w-5xl mx-auto py-12 px-4">
+        <!-- Header -->
         <header class="text-center mb-16 fade-in">
-            <h1 class="font-serif text-3xl md:text-5xl text-stone-900 tracking-[0.2em] uppercase mb-4">
+            <h1 class="font-serif text-3xl md:text-5xl text-white tracking-[0.2em] uppercase mb-4">
                 🌿 L'Éveil de la Souveraine
             </h1>
             <div class="h-px w-32 bg-gold mx-auto mb-6" style="background-color: var(--gold); opacity: 0.5;"></div>
-            <p class="text-stone-600 font-bold text-sm tracking-widest uppercase italic">Quel élément gouverne votre royaume intérieur ?</p>
+            <p class="text-gold font-light text-sm tracking-[0.3em] uppercase italic">Sondez votre royaume intérieur</p>
         </header>
 
-        <div id="quiz-container" class="question-card p-10 md:p-16 rounded-sm transition-all duration-500">
-            <div id="progress-bar" class="w-full h-px bg-stone-100 mb-12 overflow-hidden">
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="question-card p-8 md:p-16 rounded-sm transition-all duration-500">
+            <div id="progress-bar" class="w-full h-1 bg-stone-800 mb-12 overflow-hidden">
                 <div id="progress" class="progress-bar-inner" style="width: 0%"></div>
             </div>
             
-            <div id="question-box" class="fade-in">
-                <h2 id="question-text" class="font-serif text-2xl md:text-3xl mb-12 leading-relaxed text-stone-900 text-center italic">...</h2>
-                <div id="options" class="grid gap-5"></div>
+            <div id="question-box">
+                <h2 id="question-text" class="font-serif text-2xl md:text-3xl mb-12 leading-relaxed text-white text-center italic">Chargement des sagesses...</h2>
+                <div id="options" class="grid gap-4"></div>
             </div>
         </div>
 
-        <div id="result-box" class="hidden max-w-3xl mx-auto text-center py-16 px-6 md:px-10 bg-imperial border-double border-4 border-gold rounded-none shadow-2xl fade-in" style="background-color: #f4eee0;">
-            <h2 class="font-serif text-xl text-stone-500 mb-8 uppercase tracking-[0.3em] italic">Analyse terminée</h2>
-            
-            <div class="mb-14 p-6 md:p-10 bg-white/70 border-y border-stone-200 shadow-inner">
-                <p class="text-stone-700 mb-6 font-serif uppercase text-[11px] tracking-[0.4em] font-bold">Votre dualité souveraine a parlé :</p>
-                
-                <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-8">
-                    <div class="sceau-badge w-full md:w-1/2">
-                        <p class="text-[10px] uppercase font-bold text-gold tracking-widest mb-1">Sceau de Nature (Dominant)</p>
-                        <h2 id="sceau-1" class="font-serif text-3xl text-stone-900 uppercase">...</h2>
-                    </div>
-                    <div class="sceau-badge w-full md:w-1/2 border-dashed">
-                        <p class="text-[10px] uppercase font-bold text-stone-400 tracking-widest mb-1">Sceau de Résonance (Secondaire)</p>
-                        <h2 id="sceau-2" class="font-serif text-3xl text-stone-900 uppercase">...</h2>
-                    </div>
-                </div>
-
-                <p class="text-stone-800 italic font-bold tracking-wide text-xs">Notez ces deux chiffres pour décoder la synergie de vos forces.</p>
+        <!-- Result Box -->
+        <div id="result-box" class="hidden fade-in">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-xl text-gold mb-4 uppercase tracking-[0.4em] italic">Analyse Alchimique terminée</h2>
+                <p class="text-stone-400 font-light max-w-2xl mx-auto">Souveraine, votre énergie n'est pas monolithique. Voici les deux forces majeures qui sculptent votre leadership et votre vitalité.</p>
             </div>
 
-            <div class="space-y-10">
-                <h3 class="font-serif text-2xl text-stone-900 uppercase tracking-widest">Récupérez votre Clé de Synergie</h3>
-                <div class="text-stone-700 leading-relaxed font-light text-lg px-4 space-y-4 text-left">
-                    <p>
-                        Souveraine, vous n'êtes pas faite d'un seul bloc. L'interaction entre votre <strong>Sceau de Nature</strong> et votre <strong>Sceau de Résonance</strong> crée une alchimie qui vous est propre.
-                    </p>
-                    <p class="italic text-base text-stone-800 font-bold">
-                        Dans votre Guide, nous irons au-delà des généralités pour affiner vos rituels selon cette double signature élémentaire.
-                    </p>
-                    <p class="pt-4">
-                        Entrez votre adresse pour recevoir votre <strong>Clé de Décodage</strong> personnalisée et votre <strong>Guide de Renaissance (14 pages)</strong> complet :
+            <!-- Elements Grid -->
+            <div id="elements-grid" class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Populated by JS -->
+            </div>
+
+            <div class="alliance-separator font-serif text-gold tracking-widest text-sm uppercase opacity-60">
+                ✦ Récupérez votre Clé ✦
+            </div>
+
+            <!-- Section de téléchargement harmonisée (Vouvoiement) -->
+            <div class="max-w-3xl mx-auto bg-stone-900/80 p-10 md:p-14 border border-gold/30 rounded-none shadow-2xl text-center relative mb-12">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-stone-950 px-6 py-2 border border-gold/30 text-gold font-serif text-xs tracking-widest uppercase">
+                    Offre de Lignée
+                </div>
+
+                <div class="mb-10">
+                    <h3 class="font-serif text-2xl md:text-4xl text-white mb-4">✨ Votre Guide de Renaissance Tao vous attend</h3>
+                    <p class="text-stone-400 text-lg font-light leading-relaxed">
+                        Découvrez les rituels, pratiques et points d'acupression spécifiques à votre profil énergétique pour incarner pleinement votre souveraineté.
                     </p>
                 </div>
 
-                <a href="https://souffletao.substack.com/welcome" 
-                   class="inline-block w-full sm:w-auto btn-final px-16 py-6 rounded-none font-serif text-sm uppercase shadow-2xl">
-                    RECEVOIR MA CLÉ ET MON GUIDE
-                </a>
-                
-                <div class="pt-6">
-                    <p class="text-[11px] text-stone-800 tracking-[0.2em] uppercase font-bold">Accès immédiat aux secrets de lignée • 100% Gratuit</p>
-                    <p class="text-[10px] text-stone-600 italic mt-2 tracking-widest uppercase font-bold font-bold">Zéro Spam. Désinscription en un souffle.</p>
+                <div class="space-y-8">
+                    <a href="https://drive.google.com/uc?export=download&id=15d1DnQUZexG-gkfPwf99xntFY1D7-BVV" 
+                       target="_blank"
+                       class="btn-download px-10 py-6 w-full sm:w-auto font-serif text-sm shadow-lg">
+                       Télécharger mon guide gratuit 🌿
+                    </a>
+                    
+                    <div class="pt-4 border-t border-white/5">
+                        <p class="text-[10px] text-gold tracking-[0.3em] uppercase font-bold mb-2">Accès Immédiat • Format PDF (14 pages)</p>
+                        <p class="text-[9px] text-stone-500 italic uppercase">Sagesse ancestrale pour la femme moderne</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        const elementsData = {
+            1: {
+                name: "Bois",
+                emoji: "🌿",
+                color: "#4a7c59",
+                season: "Printemps",
+                emotion: "Colère / Créativité",
+                vitality: "Énergie explosive et créatrice, mais sujette à l'épuisement si non canalisée.",
+                emotionsDetail: "Frustration et impatience quand bloquée, vision et inspiration quand alignée.",
+                leadership: "Visionnaire, pionnière, initiante — elle trace la route et entraîne les autres.",
+                message: "Le Bambou se courbe sans se briser — votre force est dans votre flexibilité."
+            },
+            2: {
+                name: "Feu",
+                emoji: "🔥",
+                color: "#c0392b",
+                season: "Été",
+                emotion: "Joie / Anxiété",
+                vitality: "Rayonnante et contagieuse, mais fluctuante selon les connexions humaines.",
+                emotionsDetail: "Enthousiasme débordant ou vide émotionnel — elle vit par les relations.",
+                leadership: "Charismatique, fédératrice, inspirante — son énergie enflamme les équipes.",
+                message: "La flamme éclaire sans consumer — rayonnez avec discernement."
+            },
+            3: {
+                name: "Terre",
+                emoji: "🌍",
+                color: "#c8922a",
+                season: "Intersaison",
+                emotion: "Souci / Empathie",
+                vitality: "Stable et nourricière, mais s'épuise à force de tout porter pour les autres.",
+                emotionsDetail: "Rumination et inquiétude quand déséquilibrée, douceur et ancrage quand alignée.",
+                leadership: "Rassembleuse, médiatrice, pilier — elle crée la cohésion et le sentiment de sécurité.",
+                message: "La Terre nourrit tout — mais elle aussi doit être cultivée."
+            },
+            4: {
+                name: "Métal",
+                emoji: "⚔️",
+                color: "#8e9aaf",
+                season: "Automne",
+                emotion: "Tristesse / Rectitude",
+                vitality: "Précise et endurante, mais rigide si elle refuse de lâcher prise.",
+                emotionsDetail: "Mélancolie et perfectionnisme quand bloquée, clarté et discernement quand alignée.",
+                leadership: "Stratège, exigeante, structurante — elle élève les standards et tire vers le haut.",
+                message: "Le sabre tranche avec précision — sachez aussi poser l'arme."
+            },
+            5: {
+                name: "Eau",
+                emoji: "💧",
+                color: "#1a4a6e",
+                season: "Hiver",
+                emotion: "Peur / Sagesse",
+                vitality: "Profonde et régénératrice, mais épuisée par le manque de repos et de silence.",
+                emotionsDetail: "Anxiété existentielle quand surmenée, sagesse intuitive et calme quand ressourcée.",
+                leadership: "Visionnaire stratégique, profonde, adaptable — elle sait où va le courant avant les autres.",
+                message: "L'Eau trouve toujours son chemin — sans forcer, sans résister."
+            }
+        };
+
         const questions = [
             { text: "1. Quelle saison fait vibrer les cordes de votre âme ?", options: [
                 { text: "Le Printemps, quand la sève monte et que tout bourgeonne.", val: 1 },
@@ -288,16 +393,24 @@
 
         function loadQuestion() {
             const q = questions[currentQuestion];
+            const box = document.getElementById('question-box');
+            
+            box.classList.remove('fade-in');
+            void box.offsetWidth; 
+            box.classList.add('fade-in');
+
             document.getElementById('question-text').innerText = q.text;
             const optionsDiv = document.getElementById('options');
             optionsDiv.innerHTML = '';
+            
             q.options.forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = "btn-option w-full py-5 px-8 text-left border rounded-none font-semibold text-stone-800 text-sm md:text-base";
+                btn.className = "btn-option w-full py-5 px-8 text-left rounded-sm font-medium text-sm md:text-base";
                 btn.innerText = opt.text;
                 btn.onclick = () => selectOption(opt.val);
                 optionsDiv.appendChild(btn);
             });
+            
             document.getElementById('progress').style.width = (currentQuestion / questions.length * 100) + '%';
         }
 
@@ -305,31 +418,65 @@
             scores[val]++;
             currentQuestion++;
             if (currentQuestion < questions.length) { 
-                const box = document.getElementById('question-box');
-                box.classList.remove('fade-in');
-                void box.offsetWidth; 
-                box.classList.add('fade-in');
                 loadQuestion(); 
-            } else { showResult(); }
+            } else { 
+                showResult(); 
+            }
+        }
+
+        function generateElementHTML(id, label) {
+            const data = elementsData[id];
+            return `
+                <div class="element-card p-6 md:p-8 rounded-sm shadow-xl flex flex-col h-full" style="--element-color: ${data.color}">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="icon-circle" style="border-color: ${data.color}44; color: ${data.color}">
+                            ${data.emoji}
+                        </div>
+                        <div>
+                            <p class="text-[10px] uppercase font-bold text-gold tracking-widest">${label}</p>
+                            <h3 class="font-serif text-3xl text-white uppercase">${data.name}</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6 flex-grow">
+                        <div class="grid grid-cols-2 gap-2 text-[11px] uppercase tracking-tighter">
+                            <div class="bg-stone-800/50 p-2 rounded">Saison: <span class="text-white block font-bold">${data.season}</span></div>
+                            <div class="bg-stone-800/50 p-2 rounded">Émotion: <span class="text-white block font-bold">${data.emotion}</span></div>
+                        </div>
+
+                        <div class="space-y-4 text-sm leading-relaxed">
+                            <p><strong class="text-gold uppercase text-[10px] block mb-1 tracking-widest">Vitalité</strong> ${data.vitality}</p>
+                            <p><strong class="text-gold uppercase text-[10px] block mb-1 tracking-widest">Émotions</strong> ${data.emotionsDetail}</p>
+                            <p><strong class="text-gold uppercase text-[10px] block mb-1 tracking-widest">Leadership</strong> ${data.leadership}</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-stone-800 italic text-stone-400 text-xs text-center">
+                        "${data.message}"
+                    </div>
+                </div>
+            `;
         }
 
         function showResult() {
             document.getElementById('quiz-container').classList.add('hidden');
             const resultBox = document.getElementById('result-box');
+            const grid = document.getElementById('elements-grid');
             resultBox.classList.remove('hidden');
 
-            // Calcul des gagnants
             let sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
             
             let winner1 = sortedScores[0][0];
             let winner2 = sortedScores[1][0];
 
-            document.getElementById('sceau-1').innerText = "Sceau n°" + winner1;
-            document.getElementById('sceau-2').innerText = "Sceau n°" + winner2;
+            grid.innerHTML = 
+                generateElementHTML(winner1, "Votre Élément Principal") + 
+                generateElementHTML(winner2, "Votre Élément Secondaire");
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        loadQuestion();
+
+        window.onload = loadQuestion;
     </script>
 </body>
 </html>
