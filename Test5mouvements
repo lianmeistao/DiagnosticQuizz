@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test des 5 éléments : Découvrez votre profil de soin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fade-in { animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .btn-option { background: #2a2a2a; color: #d1d1d1; transition: all 0.3s; }
+        .btn-option:hover { background: #b8860b; color: white; }
+    </style>
+</head>
+<body class="bg-stone-950 text-stone-200 font-sans p-6">
+    <div id="quiz-container" class="max-w-2xl mx-auto mt-10">
+        <h1 class="text-3xl font-serif text-yellow-600 mb-6 text-center">Test des 5 éléments : Quel est votre profil de soin ?</h1>
+        
+        <div id="counter" class="text-xs text-stone-500 text-right mb-2 font-medium tracking-widest uppercase"></div>
+        
+        <div class="h-2 bg-stone-800 w-full mb-8 rounded-full overflow-hidden">
+            <div id="progress" class="h-full bg-yellow-700 w-0 transition-all duration-500"></div>
+        </div>
+        
+        <div id="question-box" class="fade-in">
+            <h2 id="question-text" class="text-xl font-serif mb-8"></h2>
+            <div id="options" class="space-y-4"></div>
+        </div>
+    </div>
+
+    <div id="result-box" class="hidden max-w-4xl mx-auto mt-10">
+        <h2 class="text-3xl font-serif text-center text-yellow-600 mb-10">Votre Profil Élémentaire</h2>
+        <div id="elements-grid" class="grid md:grid-cols-2 gap-8"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { text: "1. Quelle saison fait vibrer les cordes de votre âme ?", options: [
+                { text: "Le Printemps, quand la sève monte et que tout bourgeonne.", val: 1 },
+                { text: "L'Été, quand le soleil est au zénith et que la chaleur embrase tout.", val: 2 },
+                { text: "La fin de l'Été, quand la terre est lourde de fruits et de moissons.", val: 3 },
+                { text: "L'Automne, quand l'air devient pur et que le paysage se dépouille.", val: 4 },
+                { text: "L'Hiver, quand le monde se tait sous le manteau du silence.", val: 5 }
+            ]},
+            { text: "2. Face à un obstacle qui entrave votre route, quelle est votre réaction ?", options: [
+                { text: "Une impatience monte en moi : je veux briser l'entrave et avancer.", val: 1 },
+                { text: "Une agitation fébrile : je cherche à rayonner pour contourner l'ombre.", val: 2 },
+                { text: "Une inquiétude sourde : je crains de perdre mon équilibre et mes repères.", val: 3 },
+                { text: "Une analyse froide : je cherche la faille logique pour trancher le problème.", val: 4 },
+                { text: "Un retrait dans mon temple intérieur pour observer la marée passer.", val: 5 }
+            ]},
+            { text: "3. Quelle partie d'un projet vous passionne le plus ?", options: [
+                { text: "L'élan du début, l'idée qui jaillit et la mise en mouvement.", val: 1 },
+                { text: "Le partage et la célébration quand le projet rayonne enfin.", val: 2 },
+                { text: "La phase de consolidation, où l'on construit du concret et du solide.", val: 3 },
+                { text: "Le moment de la finition, où l'on épure et amène à la perfection.", val: 4 },
+                { text: "La phase de réflexion silencieuse, où l'on sonde les profondeurs du possible.", val: 5 }
+            ]},
+            { text: "4. Lorsque la fatigue vous gagne, où se loge la tension dans votre corps ?", options: [
+                { text: "Dans la nuque et les trapèzes, comme un carcan qui m'emprisonne.", val: 1 },
+                { text: "Au niveau de la poitrine, comme une oppression qui m'empêche de respirer.", val: 2 },
+                { text: "Au niveau du plexus ou de l'estomac, comme un nœud qui ne se délie pas.", val: 3 },
+                { text: "Dans les épaules ou le haut du dos, comme une armure trop lourde.", val: 4 },
+                { text: "Dans les reins ou le bas du dos, comme une perte de soutien vital.", val: 5 }
+            ]},
+            { text: "5. Quelle sensation tactile préférez-vous sous vos doigts ?", options: [
+                { text: "Le contact du bois vivant, robuste, nervuré et plein de sève.", val: 1 },
+                { text: "La chaleur d'une flamme ou d'un tissu soyeux, vibrant et solaire.", val: 2 },
+                { text: "La densité de l'argile ou du velours, stable, riche et protectrice.", val: 3 },
+                { text: "Le froid d'un métal poli ou d'une pierre précieuse impeccable.", val: 4 },
+                { text: "La fluidité de l'eau ou d'une soie fraîche et insaisissable.", val: 5 }
+            ]},
+            { text: "6. Comment l'impulsion de vos projets naît-elle dans votre quotidien ?", options: [
+                { text: "Par une vision claire et une volonté de conquérir de nouveaux horizons.", val: 1 },
+                { text: "Par une étincelle de passion, un élan irrésistible du cœur.", val: 2 },
+                { text: "Par le désir de bâtir un foyer solide et une sécurité durable.", val: 3 },
+                { text: "Par un besoin de structure, de justice et de clarté morale.", val: 4 },
+                { text: "Par une intuition profonde qui émerge du silence méditatif.", val: 5 }
+            ]},
+            { text: "7. Qu'est-ce qui vient flétrir votre éclat intérieur ?", options: [
+                { text: "L'inaction forcée ou de devoir attendre après les autres.", val: 1 },
+                { text: "Le froid de l'indifférence et le manque de chaleur humaine.", val: 2 },
+                { text: "L'instabilité émotionnelle et le changement perpétuel.", val: 3 },
+                { text: "Le chaos, le désordre ou l'absence de sens éthique.", val: 4 },
+                { text: "Le bruit incessant qui brouille ma communication avec moi-même.", val: 5 }
+            ]},
+            { text: "8. De quelle manière votre corps exprime-t-il sa puissance ?", options: [
+                { text: "Par un besoin de mouvement vif, d'étirement et de souplesse.", val: 1 },
+                { text: "Par une vibration joyeuse qui aime danser avec l'énergie ambiante.", val: 2 },
+                { text: "Par une force tranquille, préférant la lenteur et la solidité du pas.", val: 3 },
+                { text: "Par une discipline précise, cherchant le geste pur et efficace.", val: 4 },
+                { text: "Par une résistance fluide, capable de s'adapter à toutes les pressions.", val: 5 }
+            ]},
+            { text: "9. De quoi votre âme a-t-elle le plus soif pour s'épanouir ?", options: [
+                { text: "De liberté, de nouveaux défis et d'espace pour croître.", val: 1 },
+                { text: "D'amour, de reconnaissance et de résonance avec autrui.", val: 2 },
+                { text: "De stabilité, de sécurité et d'un ancrage terrestre immuable.", val: 3 },
+                { text: "De vérité, de justice et d'une structure de vie impeccable.", val: 4 },
+                { text: "De silence, de mystère et de temps pour la contemplation.", val: 5 }
+            ]},
+            { text: "10. Comment scellez-vous une décision qui engage votre destin ?", options: [
+                { text: "Je tranche avec assurance, portée par mes instincts de guide.", val: 1 },
+                { text: "Je suis les élans de mon cœur, cherchant l'éclat du moment.", val: 2 },
+                { text: "Je temporise, cherchant l'harmonie et l'équilibre du groupe.", val: 3 },
+                { text: "Je soupèse chaque grain de vérité avec une rigueur absolue.", val: 4 },
+                { text: "Je sonde l'invisible, attendant que le courant me guide.", val: 5 }
+            ]},
+            { text: "11. Quel rôle occupez-vous naturellement dans un groupe ?", options: [
+                { text: "La leader qui donne la direction.", val: 1 },
+                { text: "Celle qui anime et crée du lien.", val: 2 },
+                { text: "Celle qui soutient et stabilise.", val: 3 },
+                { text: "La conseillère qui apporte la structure.", val: 4 },
+                { text: "L'observatrice qui apporte la vision profonde.", val: 5 }
+            ]},
+            { text: "12. Quel est votre rapport au corps ?", options: [
+                { text: "Un outil de performance et de mouvement.", val: 1 },
+                { text: "Un vecteur de sensations et de plaisir.", val: 2 },
+                { text: "Un temple qu'il faut nourrir et sécuriser.", val: 3 },
+                { text: "Un espace de discipline et de pureté.", val: 4 },
+                { text: "Un réceptacle d'intuitions et de mystères.", val: 5 }
+            ]}
+        ];
+
+        let currentQuestion = 0;
+        let scores = { 1:0, 2:0, 3:0, 4:0, 5:0 };
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            const box = document.getElementById('question-box');
+            
+            document.getElementById('counter').innerText = `Question ${currentQuestion + 1} sur ${questions.length}`;
+            
+            box.classList.remove('fade-in');
+            void box.offsetWidth; 
+            box.classList.add('fade-in');
+
+            document.getElementById('question-text').innerText = q.text;
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "btn-option w-full py-5 px-8 text-left rounded-sm font-medium text-sm md:text-base";
+                btn.innerText = opt.text;
+                btn.onclick = () => selectOption(opt.val);
+                optionsDiv.appendChild(btn);
+            });
+            
+            document.getElementById('progress').style.width = (currentQuestion / questions.length * 100) + '%';
+        }
+
+        function selectOption(val) {
+            scores[val]++;
+            currentQuestion++;
+            if (currentQuestion < questions.length) { 
+                loadQuestion(); 
+            } else { 
+                showResult(); 
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            const resultBox = document.getElementById('result-box');
+            resultBox.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>
